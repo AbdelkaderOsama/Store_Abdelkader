@@ -1,0 +1,6 @@
+@Store_Abdelkader_HostAddress = http://localhost:5099
+
+GET {{Store_Abdelkader_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
