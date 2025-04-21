@@ -20,26 +20,37 @@ namespace Services
            var Products = await unitOfWork.GetRepository<Product,int>().GetAllAsync();
 
            var result =  mapper.Map<IEnumerable<ProductResultDto>>(Products);
+           return result;
            
+        }
+
+        public async Task<ProductResultDto?> GetProductByIdAsync(int id)
+        {
+            var prouct =  await unitOfWork.GetRepository<Product, int>().GetAsync(id);
+            if (prouct != null) return null;
+            var result = mapper.Map<ProductResultDto>(prouct);
             return result;
         }
 
-        public Task<ProductResultDto> GetProductByIdAsync(int id)
-        {
-            throw new NotImplementedException();
-        }
-
-
-        public Task<BrandResultDto> GetAllBrandsAsync()
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task<TypeResultDto> GetAllTypesAsync()
-        {
-            throw new NotImplementedException();
-        }
 
         
+
+        Task<IEnumerable<BrandResultDto>> IProductService.GetAllBrandsAsync()
+        {
+         var brands = unitOfWork.GetRepository<ProductBrand, int>().GetAllAsync();
+           var result =  mapper.Map<IEnumerable<BrandResultDto>>(brands);
+
+            return (Task<IEnumerable<BrandResultDto>>)result;
+       
+
+        }
+
+       Task<IEnumerable<TypeResultDto>> IProductService.GetAllTypesAsync()
+       {
+            var types = unitOfWork.GetRepository<ProductType, int>().GetAllAsync();
+            var result = mapper.Map<IEnumerable<BrandResultDto>>(types);
+
+            return (Task<IEnumerable<TypeResultDto>>)result;
+       }
     }
 }

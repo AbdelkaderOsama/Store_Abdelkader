@@ -20,9 +20,9 @@ namespace Presistence.Repositories
         }
         public async Task<IEnumerable<TEntity>> GetAllAsync(bool TrackChanges = false)
         {
-           return TrackChanges ?
-                await _context.Set<TEntity>().ToListAsync()
-                : await _context.Set<TEntity>().AsNoTracking().ToListAsync();
+            return TrackChanges ?
+                 await _context.Set<TEntity>().ToListAsync()
+                 : await _context.Set<TEntity>().AsNoTracking().ToListAsync();
 
 
 

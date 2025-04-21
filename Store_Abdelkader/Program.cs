@@ -3,6 +3,10 @@ using Domain.Contracts;
 using Microsoft.EntityFrameworkCore;
 using Presistence;
 using Presistence.Data;
+using Services;
+using Services.Abstraction;
+
+using AssemblyMapping =  Services.AssemblyReference;
 
 namespace Store_Abdelkader
 {
@@ -24,6 +28,10 @@ namespace Store_Abdelkader
                 options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
             });
             builder.Services.AddScoped<IDbInitializer, DbInitializer>();
+            builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
+            builder.Services.AddAutoMapper(typeof(AssemblyMapping).Assembly);
+            builder.Services.AddScoped<IServiceManager, ServiceManager>();
+            
 
             var app = builder.Build();
 
